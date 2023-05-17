@@ -1,0 +1,10 @@
+.scroll-container {
+    /* Ocultar el scrollbar en navegadores WebKit (Chrome, Safari) */
+    ::-webkit-scrollbar {
+      display: none;
+    }
+  
+    /* Opcional: Ocultar el scrollbar en Firefox */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
