@@ -50,4 +50,4 @@ https://www.figma.com/file/nwp2YnqmwihRYWfapI95Qd/Untitled?type=design&node-id=0
 ### Funciones a implementar
 
 1.- Mensaje en caso de que no se encuentro el producto
-2.- Importar la url desde un archiv
+2.- Importar la url desde un archi
