@@ -32,3 +32,22 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+## Tecnologías
+
+React JS
+Next JS
+Node JS
+Tailwind
+HTML
+CSS
+Javascript
+
+## Diseño en Figma
+
+https://www.figma.com/file/nwp2YnqmwihRYWfapI95Qd/Untitled?type=design&node-id=0%3A1&t=HQTB0NpCFztBOK3R-1
+
+### Funciones a implementar
+
+1.- Mensaje en caso de que no se encuentro el producto
+2.- Importar la url desde un archivo
