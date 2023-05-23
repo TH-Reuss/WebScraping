@@ -2,8 +2,6 @@ version: 0.2
 
 phases:
   install:
-    runtime-versions:
-      nodejs: 18.16.0
     commands:
       - npm install
   build:
