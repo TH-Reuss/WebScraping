@@ -3,7 +3,7 @@ version: 0.2
 phases:
   pre_build:
     commands:
-      - npm run build
+      - next build
   build:
     commands:
       - echo La compilación se completó en `date`
