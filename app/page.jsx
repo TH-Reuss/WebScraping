@@ -1,17 +1,18 @@
 'use client';
+//Hooks
 import React, { useState } from 'react';
-
-import ProductCard from '../components/product_card'
-import LoadingMessage from '@/components/loading_message';
-import Message from '@/components/message';
-import Menu from '@/components/menu';
-
+//Components
+import ProductCard from '../components/Product_card'
+import LoadingMessage from '@/components/Loading_message';
+import Message from '@/components/Message';
+import Store_link from '@/components/Store_link'
+//Styles
 import '../public/main.css'
+//API
+import { getProducts } from '@/api/Products';
+
 export default function Home() {
-  const axios = require('axios');
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL
-  
-  'Agregar mensajes de que el input está en blanco y que no se encontraron productos'
+    
   const [message, setMessage] = useState({'state': false, 'message':''})
   const [isLoading, setLoading] = useState(false)
   const [inputProduct, setInputProduct] = useState('');
@@ -21,25 +22,23 @@ export default function Home() {
     setInputProduct(event.target.value);
   };
 
-  const handleKeyDown = (event) => {
+  const handleKeyDownInputProduct = (event) => {
     if (event.key === 'Enter') {
-      getProducts();
+      showProducts();
     }
   };
 
-  const getProducts = async () =>{
-    setLoading(true)
-    
+  const showProducts = async () =>{
     try{
-      const response = await axios.get(apiUrl + 'products/' + inputProduct)
+      setLoading(true)
+      const response = await getProducts(inputProduct)
       setProducts(response.data)
       setMessage({'state': false, 'message': ''})
     }
     catch(error){
       setProducts([])
-      setMessage({'state': true, 'message': error.response.data.message})
+      setMessage({'state': true, 'message': error.message})
     }
-
     setLoading(false)
   }
 
@@ -74,14 +73,23 @@ export default function Home() {
               placeholder='Ingresa una busqueda'
               value = {inputProduct}
               onChange = {handleChange}
-              onKeyDown = {handleKeyDown}
+              onKeyDown = {handleKeyDownInputProduct}
             />
 
             <div className='text-[0.8rem] font-light text-white'>
               <h3>Lista de páginas</h3>
               <div className='flex flex-row flex-wrap justify-between mt-[2%] sm:w-[100%] md:w-[90%] lg:w-[100%] xl:w-[83%]'>
-                <a href='https://www.falabella.com/falabella-cl' target='_blank' className=' underline text-[0.8rem] font-light text-white'>https://www.falabella.com/falabella-cl</a>
-                <a href='https://www.falabella.com/falabella-cl' target='_blank' className=' underline text-[0.8rem] font-light text-white hidden md:flex'>https://www.falabella.com/falabella-cl</a>
+                <Store_link
+                  href="https://www.falabella.com/falabella-cl"
+                  target="_blank"
+                  url="https://www.falabella.com/falabella-cl"
+                />
+                <Store_link
+                  href="https://www.falabella.com/falabella-cl"
+                  target="_blank"
+                  customStyles="md:flex"
+                  url="https://www.falabella.com/falabella-cl"
+                />
               </div>
               
             </div>
@@ -92,9 +100,9 @@ export default function Home() {
         <div className=' scroll-container flex flex-col mt-[15%] xl:border-solid xl:border-l-[0.1px] border-white xl:mt-0 xl:w-[55%] 2xl:w-[55%] xl:items-center xl:justify-center'>
           <div className="xl:h-[80vh] xl:w-[85%] overflow-x-hidden">
             {message['state'] && <Message message={message['message']}/>}
-            {products.map((product, index) => (
+            {products.map((product) => (
                   <ProductCard 
-                  key = {index}
+                  key = {product.id}
                   title = {product.title}
                   max_length_title = {60}
                   description = {"Lorem ipsum dolor sit amet consectetur adipiscing elit nascetur, id dapibus montes placerat dignissim mollis accumsan."}
@@ -102,12 +110,10 @@ export default function Home() {
                   date = {new Date().toLocaleDateString()}
                   store = {"Falabella"}
                   product_url = {product.url}
-                  ></ProductCard>
+                  />
             ))}
           </div>
         </div>
-
-        <Menu></Menu>
       </div>
   )
 }
