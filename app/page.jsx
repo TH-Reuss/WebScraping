@@ -3,9 +3,9 @@
 import React, { useState } from 'react';
 //Components
 import ProductCard from '../components/Product_card'
-import LoadingMessage from '@/components/Loading_message';
-import Message from '@/components/Message';
-import Store_link from '@/components/Store_link'
+import LoadingMessage from '../components/Loading_message';
+import Message from '../components/Message';
+import Store_link from '../components/Store_link'
 //Styles
 import '../public/main.css'
 //API
