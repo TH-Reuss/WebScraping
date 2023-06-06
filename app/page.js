@@ -3,14 +3,16 @@ import React, { useState } from 'react';
 
 import ProductCard from '../components/product_card'
 import LoadingMessage from '@/components/loading_message';
+import Message from '@/components/message';
+import Menu from '@/components/menu';
 
 import '../public/main.css'
 export default function Home() {
-
   const axios = require('axios');
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL
   
   'Agregar mensajes de que el input está en blanco y que no se encontraron productos'
-
+  const [message, setMessage] = useState({'state': false, 'message':''})
   const [isLoading, setLoading] = useState(false)
   const [inputProduct, setInputProduct] = useState('');
   const [products, setProducts] = useState([])
@@ -21,24 +23,24 @@ export default function Home() {
 
   const handleKeyDown = (event) => {
     if (event.key === 'Enter') {
-      makeHTTPRequest();
+      getProducts();
     }
   };
 
-  const makeHTTPRequest = () =>{
+  const getProducts = async () =>{
     setLoading(true)
-    axios.get('http://portfolio-web-scraping-api-flask.us-east-1.elasticbeanstalk.com/products/' + inputProduct)
-    .then(function (response) {
-      // handle success
-      setProducts(response.data) 
-    })
-    .catch(function (error) {
-      // handle error
-      console.log(error);
-    })
-    .finally(function () {
-      setLoading(false)
-    });
+    
+    try{
+      const response = await axios.get(apiUrl + 'products/' + inputProduct)
+      setProducts(response.data)
+      setMessage({'state': false, 'message': ''})
+    }
+    catch(error){
+      setProducts([])
+      setMessage({'state': true, 'message': error.response.data.message})
+    }
+
+    setLoading(false)
   }
 
   return (
@@ -87,10 +89,12 @@ export default function Home() {
           </div>
         </div>
 
-        <div className=' scroll-container flex flex-col mt-[15%] xl:border-solid xl:border-l-[0.1px] border-white xl:mt-0 xl:w-[60%] 2xl:w-[60%] xl:items-center xl:justify-center'>
+        <div className=' scroll-container flex flex-col mt-[15%] xl:border-solid xl:border-l-[0.1px] border-white xl:mt-0 xl:w-[55%] 2xl:w-[55%] xl:items-center xl:justify-center'>
           <div className="xl:h-[80vh] xl:w-[85%] overflow-x-hidden">
+            {message['state'] && <Message message={message['message']}/>}
             {products.map((product, index) => (
                   <ProductCard 
+                  key = {index}
                   title = {product.title}
                   max_length_title = {60}
                   description = {"Lorem ipsum dolor sit amet consectetur adipiscing elit nascetur, id dapibus montes placerat dignissim mollis accumsan."}
@@ -102,6 +106,8 @@ export default function Home() {
             ))}
           </div>
         </div>
+
+        <Menu></Menu>
       </div>
   )
 }
