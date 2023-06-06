@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import ProductCard from '../components/product_card'
 import LoadingMessage from '../components/loading_message';
 import Message from '../components/message'
-import Store_link from '../components/store_link'
+//import Store_link from '../components/store_link'
 //Styles
 import '../public/main.css'
 //API
@@ -79,7 +79,7 @@ export default function Home() {
             <div className='text-[0.8rem] font-light text-white'>
               <h3>Lista de páginas</h3>
               <div className='flex flex-row flex-wrap justify-between mt-[2%] sm:w-[100%] md:w-[90%] lg:w-[100%] xl:w-[83%]'>
-                <Store_link
+                {/* <Store_link
                   href="https://www.falabella.com/falabella-cl"
                   target="_blank"
                   url="https://www.falabella.com/falabella-cl"
@@ -89,7 +89,7 @@ export default function Home() {
                   target="_blank"
                   customStyles="md:flex"
                   url="https://www.falabella.com/falabella-cl"
-                />
+                /> */}
               </div>
               
             </div>
